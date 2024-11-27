@@ -520,10 +520,10 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
             swefcs(:,:,t) = dummy
 
             ! snow depth
-            error=nf90_inq_varid(ncid, "snwdph", id_var)
-            call netcdf_err(error, 'reading snwdph id' )
+            error=nf90_inq_varid(ncid, "snodl", id_var)
+            call netcdf_err(error, 'reading snodl id' )
             error=nf90_get_var(ncid, id_var, dummy)
-            call netcdf_err(error, 'reading snwdph' )
+            call netcdf_err(error, 'reading snodl' )
             sndfcs(:,:,t) = dummy
 
             ! layer 1 soil temperature
