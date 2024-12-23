@@ -162,16 +162,10 @@ subroutine calculate_scf(idim, jdim, source, otype, yyyymmddhh, jdate, fcst_path
                             ! do not assimilate, if obs and model indicate "full" snow. 
                             ! (recall: converting obs SCF>0.5 to full snow)
                             ! additional check to remove obs if obs have full snow, but calculated snow depth is lower than the model
-<<<<<<< HEAD:sorc/SCFaggregate_mod.f90
                             if ( (scf(i,j,t) >= 0.5 ) .and.  & 
                                     (  (scffcs(i,j,t) > trunc_scf ) .or.  (sndfcs(i,j,t ) >  snd(i,j,t) ) ) ) then 
-                                   snd(i,j,t) = nodata_real
-=======
-                            if ( (scfIMS(i,j,t) >= 0.5 ) .and.  & 
-                                    (  (scffcs(i,j,t) > trunc_scf ) .or.  (sndfcs(i,j,t ) >  sndIMS(i,j,t) ) ) ) then 
-                                   !sndIMS(i,j,t) = nodata_real
-                                   sndIMS(i,j,t) = -10. ! give a different value, so can be removed after thinning in UFO filter
->>>>>>> upstream/develop:sorc/IMSaggregate_mod.f90
+                                   !snd(i,j,t) = nodata_real
+                                   snd(i,j,t) = -10. ! give a different value, so can be removed after thinning in UFO filter
                             endif 
                             if ( snd(i,j,t) > snd_max ) then 
                                    snd(i,j,t) = nodata_real
