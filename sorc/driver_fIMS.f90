@@ -37,7 +37,7 @@
 
  if (.not. file_exists) then
         print *, 'namelistfile does not exist, exiting' 
-        stop 10
+        stop 0
  endif
 
  open (action='read', file='fims.nml', iostat=ierr, newunit=io)
