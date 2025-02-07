@@ -156,7 +156,7 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
 
             else 
                 print *, 'unknown lsm:', lsm, ', choose 1 - noah, 2 - noah-mp' 
-                stop 10 
+                stop 0 
             endif
         else 
                 sndIMS=nodata_real
@@ -488,7 +488,7 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
             if (.not. file_exists) then
                     print *, 'read_fcst error,file does not exist', &
                             trim(fcst_file) , ' exiting'
-                    stop 10
+                    stop 0
             endif
 
             error=nf90_open(trim(fcst_file), nf90_nowrite,ncid)
@@ -502,7 +502,7 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
 
             if ((idim_file) /= idim) then
                 print*,'fatal error reading fcst file: dimensions wrong.'
-                stop 10
+                stop 0
             endif
 
             ! vegetation type
@@ -598,7 +598,7 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
         if (.not. file_exists) then
            print *, 'observation_read_IMS_full error,file does not exist', &
                         trim(IMS_obs_file) , ' exiting'
-           stop 10
+           stop 0
 
         endif
 
@@ -611,7 +611,7 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
             j_ims = 1024
         else 
            print *, 'unrecognised imsres', trim(imsres), ' exiting'
-           stop 10
+           stop 0
         endif
 
         allocate(IMS_flag(j_ims, i_ims))   
@@ -654,7 +654,7 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
 
         else
            print*,'fatal error reading IMS OBS file'
-           stop 10   
+           stop 0   
         endif 
 
         ! IMS codes: 0 - outside range,
@@ -681,7 +681,7 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
         if (.not. file_exists) then
           print *, 'observation_read_IMS_full error, index file does not exist', &
                  trim(IMS_ind_file) , ' exiting'
-          stop 10
+          stop 0
         endif
     
         error=nf90_open(trim(IMS_ind_file),nf90_nowrite, ncid)
@@ -776,7 +776,7 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
         print*,''
         print*,'fatal error: ', trim(string), ': ', trim(errmsg)
         print*,'stop.' 
-        stop 10
+        stop 0
 
         return
  end subroutine netcdf_err
@@ -879,7 +879,7 @@ subroutine calculate_scfIMS(idim, jdim, otype, yyyymmddhh, jdate, IMS_obs_path, 
                         snup = snupx(vetfcs(i,j,t))*1000. ! convert to mm
                         if (snup == 0.) then
                             print*, " 0.0 snup value, check vegclasses", vetfcs(i,j,t)
-                            stop 10
+                            stop 0
                         endif
 
                         ! if model and IMS both have 100% snow cover, don't convert IMS to a snow depth
